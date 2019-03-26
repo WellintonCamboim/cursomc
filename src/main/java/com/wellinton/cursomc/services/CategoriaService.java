@@ -20,6 +20,4 @@ public class CategoriaService {
 		Optional<Categoria> obj = repo.findById(id); //Operação que faz busca no banco de dados
 		return obj.orElse(null);
 	}
-	
-
 }
