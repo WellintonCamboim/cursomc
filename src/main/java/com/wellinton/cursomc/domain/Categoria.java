@@ -7,13 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Entity //Indica que a presente class será uma entidade do JPA
+@Entity //Indica que a presente class será uma entidade do JPA-- Para criar a tab. de BD
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY) //Para definir a estratégia de geração automatica 
-	//dos Ids das minhas categorias 
+	//dos Ids das minhas categorias-- Para criar a tab. de BD
 	private Integer id;
 	private String nome;
 	
