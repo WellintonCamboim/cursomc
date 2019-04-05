@@ -13,6 +13,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 //Mapeamento da class Produto -->@Entity
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 @Entity 
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -39,6 +41,7 @@ public class Produto implements Serializable {
 
 	//inverseJoinColumns → Outra chave estrangeira que irá referenciar a categoria = categoria_id
 	
+	@JsonBackReference //Aula-S2-17, Irá omitir a lista de categorias para cada produto
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA",
 			joinColumns = @JoinColumn(name = "produto_id"),
