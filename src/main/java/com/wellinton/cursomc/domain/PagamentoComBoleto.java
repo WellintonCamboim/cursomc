@@ -2,8 +2,11 @@ package com.wellinton.cursomc.domain;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+
 import com.wellinton.cursomc.domain.enums.EstadoPagamento;
 
+@Entity
 public class PagamentoComBoleto extends Pagamento {
 	private static final long serialVersionUID = 1L;
 	
@@ -35,9 +38,6 @@ public class PagamentoComBoleto extends Pagamento {
 	public void setDataPagamento(Date dataPagamento) {
 		this.dataPagamento = dataPagamento;
 	}
-
-	
-	
 
 
 }

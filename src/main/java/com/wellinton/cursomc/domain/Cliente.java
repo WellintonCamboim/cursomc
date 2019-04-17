@@ -43,6 +43,7 @@ public class Cliente implements Serializable {
 	private Set<String> telefone = new HashSet<>();
 	
 	//Lista de pedidos = Aula S2-22
+	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	
 	

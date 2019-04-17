@@ -1,7 +1,11 @@
 package com.wellinton.cursomc.domain;
 
-import com.wellinton.cursomc.domain.enums.EstadoPagamento;
+import javax.persistence.Entity;
 
+import com.wellinton.cursomc.domain.enums.EstadoPagamento;
+//A anotação @Entity é utilizada para informar que uma classe também é uma entidade. Uma entidade representa, na Orientação a Objetos, 
+//uma tabela do banco de dados, e cada instância dessa entidade representa uma linha dessa tabela.
+@Entity 
 public class PagamentoComCartao extends Pagamento {
 	private static final long serialVersionUID = 1L;
 	
