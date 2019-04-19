@@ -2,7 +2,9 @@ package com.wellinton.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 //Mapeamento da class Produto -->@Entity
+import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
@@ -49,6 +52,10 @@ public class Produto implements Serializable {
 	)
 	private List<Categoria> categorias = new ArrayList<>();
 	
+	// Set = Para o Java não deixar ter item repetido no mesmo pedido - Aula - S2-25
+	@OneToMany(mappedBy="id.produto")
+	private Set<ItemPedido> itens = new HashSet<>();
+	
 	//Construtor Vazio
 	public Produto() {
 		
@@ -61,6 +68,16 @@ public class Produto implements Serializable {
 		this.nome = nome;
 		this.preco = preco;
 	}
+	
+	//Aula - S2-25
+	public List<Pedido> getPedido(){
+		List<Pedido> lista = new ArrayList<>();
+		for (ItemPedido x : itens ) {
+			lista.add(x.getPedido());
+		}
+		return lista;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -85,6 +102,15 @@ public class Produto implements Serializable {
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
+	
+	//Getters e Setters
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
 	//hashCode e equals (implementação padrão: somente id) --> 
 	//Criar com base somente no id, para comparar pelo conteúdo e não pelo ponteiro
 	@Override
@@ -110,6 +136,7 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
+
 	
 
 }

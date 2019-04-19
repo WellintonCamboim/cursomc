@@ -2,6 +2,8 @@ package com.wellinton.cursomc.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -10,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 //Aula - S2-22
@@ -35,6 +38,10 @@ public class Pedido implements Serializable {
 	@JoinColumn(name="endereco_de_entrega_id")
 	private Endereco enderecoDeEntrega;
 	
+	// Set = Para o Java não deixar ter item repetido no mesmo pedido- Aula - S2-25
+	@OneToMany(mappedBy="id.pedido")
+	private Set<ItemPedido> itens = new HashSet<>();
+		
 	//Construtor Vazio
 	public Pedido() {}
 	//Construtor
@@ -78,6 +85,14 @@ public class Pedido implements Serializable {
 		this.enderecoDeEntrega = enderecoDeEntrega;
 	}
 	
+	//Getters e Setters 
+	public Set<ItemPedido> getItens() {
+		return itens;
+	}
+	public void setItens(Set<ItemPedido> itens) {
+		this.itens = itens;
+	}
+	
 	//HashCode e Equals
 	@Override
 	public int hashCode() {
@@ -103,7 +118,7 @@ public class Pedido implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 	
 
 }
