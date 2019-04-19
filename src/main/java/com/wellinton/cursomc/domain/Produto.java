@@ -16,7 +16,6 @@ import javax.persistence.ManyToMany;
 //Mapeamento da class Produto -->@Entity
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
@@ -49,14 +48,14 @@ public class Produto implements Serializable {
 
 	// inverseJoinColumns → Outra chave estrangeira que irá referenciar a categoria
 	// = categoria_id
-
-	@JsonBackReference // Aula-S2-17, Irá omitir a lista de categorias para cada produto
+	// Aula-S2-17, Irá omitir a lista de categorias para cada produto
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
 
 	// Set = Para o Java não deixar ter item repetido no mesmo pedido - Aula - S2-25
-	@JsonIgnore 
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
 
@@ -75,7 +74,7 @@ public class Produto implements Serializable {
 	}
 
 	// Aula - S2-25
-	//@JsonIgnore
+	@JsonIgnore
 	public List<Pedido> getPedido() {
 		List<Pedido> lista = new ArrayList<>();
 		for (ItemPedido x : itens) {

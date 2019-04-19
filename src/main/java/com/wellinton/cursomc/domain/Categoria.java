@@ -10,8 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @Entity // Indica que a presente class será uma entidade do JPA-- Para criar a tab. de
 		// BD
 public class Categoria implements Serializable {
@@ -27,7 +25,6 @@ public class Categoria implements Serializable {
 	// uma lista de produtos
 	// produtos - Nome do papel - Ver em UML
 
-	@JsonManagedReference // No lado onde eu quero que venha os objetos associados - aula S2-17
 	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
 	// Para iniciar --> produtos = new ArrayList<>();

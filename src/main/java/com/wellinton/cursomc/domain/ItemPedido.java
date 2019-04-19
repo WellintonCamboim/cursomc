@@ -9,12 +9,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class ItemPedido implements Serializable {
-
 	private static final long serialVersionUID = 1L;
 
 	// Chave composta contendo o produto e o pedido - Aula - S2-25
 	// @EmbeddedId id embutido em um tipo auxiliar - Aula - S2-26
-	//@JsonIgnore - Não irá ser serializado - Aula - S2-27
+	// @JsonIgnore - Não irá ser serializado - Aula - S2-27
 	@JsonIgnore
 	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
@@ -38,13 +37,13 @@ public class ItemPedido implements Serializable {
 	}
 
 	// Tem de utilizar o @JsonIgone devido ao get. Tudo que começa com get o Java
-				// irá serializar, por isso devemos ignorar
-	@JsonIgnore 
+	// irá serializar, por isso devemos ignorar
+	@JsonIgnore
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
 
-	public Produto produto() {
+	public Produto getproduto() {
 		return id.getProduto();
 	}
 

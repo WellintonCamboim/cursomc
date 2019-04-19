@@ -14,8 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.wellinton.cursomc.domain.enums.TipoCliente;
 
 //Aula - S2-19
@@ -32,9 +31,7 @@ public class Cliente implements Serializable {
 	private String cpfOuCnpj;
 	private Integer tipo;
 
-	//@JsonManagedReference --> Para liberar a serialização dos endereços
 	// Relacionamentos
-	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
 
@@ -42,14 +39,13 @@ public class Cliente implements Serializable {
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefone = new HashSet<>();
-	
-	//Lista de pedidos = Aula S2-22
-	//Os pedidos de um cliente não serão serializados - Aula - S2-27
-	@JsonBackReference
-	@OneToMany(mappedBy="cliente")
+
+	// Lista de pedidos = Aula S2-22
+	// Os pedidos de um cliente não serão serializados - Aula - S2-27
+	@JsonIgnore
+	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
-	
-	
+
 	// Construtor Vazio
 	public Cliente() {
 	}
@@ -120,8 +116,8 @@ public class Cliente implements Serializable {
 	public void setTelefone(Set<String> telefone) {
 		this.telefone = telefone;
 	}
-	
-	//Getters e Setters 
+
+	// Getters e Setters
 	public List<Pedido> getPedidos() {
 		return pedidos;
 	}
