@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.wellinton.cursomc.domain.enums.TipoCliente;
 
@@ -43,6 +44,8 @@ public class Cliente implements Serializable {
 	private Set<String> telefone = new HashSet<>();
 	
 	//Lista de pedidos = Aula S2-22
+	//Os pedidos de um cliente não serão serializados - Aula - S2-27
+	@JsonBackReference
 	@OneToMany(mappedBy="cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	

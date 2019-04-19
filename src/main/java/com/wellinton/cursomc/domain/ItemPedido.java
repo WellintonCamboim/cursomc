@@ -5,27 +5,30 @@ import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 public class ItemPedido implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-
-	//Chave composta contendo o produto e o pedido - Aula - S2-25
-	//@EmbeddedId id embutido em um tipo auxiliar - Aula - S2-26
+	// Chave composta contendo o produto e o pedido - Aula - S2-25
+	// @EmbeddedId id embutido em um tipo auxiliar - Aula - S2-26
+	//@JsonIgnore - Não irá ser serializado - Aula - S2-27
+	@JsonIgnore
 	@EmbeddedId
 	private ItemPedidoPK id = new ItemPedidoPK();
-	
-	
+
 	private Double desconto;
 	private Integer quantidade;
 	private Double preco;
-	
-	//Construtor Vazio
-	public ItemPedido() {}
 
-	//Construtor
-	public ItemPedido( Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
+	// Construtor Vazio
+	public ItemPedido() {
+	}
+
+	// Construtor
+	public ItemPedido(Pedido pedido, Produto produto, Double desconto, Integer quantidade, Double preco) {
 		super();
 		id.setPedido(pedido);
 		id.setProduto(produto);
@@ -33,16 +36,19 @@ public class ItemPedido implements Serializable {
 		this.quantidade = quantidade;
 		this.preco = preco;
 	}
-	
+
+	// Tem de utilizar o @JsonIgone devido ao get. Tudo que começa com get o Java
+				// irá serializar, por isso devemos ignorar
+	@JsonIgnore 
 	public Pedido getPedido() {
 		return id.getPedido();
 	}
-	
+
 	public Produto produto() {
 		return id.getProduto();
 	}
-	
-	//Getters e Setters 
+
+	// Getters e Setters
 	public ItemPedidoPK getId() {
 		return id;
 	}
@@ -74,9 +80,8 @@ public class ItemPedido implements Serializable {
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
-	
-	
-	//Hashcode e Equals
+
+	// Hashcode e Equals
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -101,7 +106,5 @@ public class ItemPedido implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

@@ -17,102 +17,116 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
-@Entity 
+@Entity
 public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
 	private Double preco;
-	
-	//Uma produto possui no minimo 1 categoria ou várias categorias - 
-	//Fonte UML - Por isso devemos construir uma lista de categorias
-	//categorias - Nome do papel - Ver em UML
-	//Para iniciar --> produtos = new ArrayList<>();
-	
-	//@JoinTable define a tabela que fará a ligação de muitos para muitos no banco de dados relacional
-	
-	/*Mapeamento da lista de categorias informando quem irá ser a tabela de banco de dados que 
-	 * irá fazer o meio de campe entre as duas tabelas (CATEGORIA E PRODUTO)*/
 
-	//Conexões entre chaves estrangeiras
+	// Uma produto possui no minimo 1 categoria ou várias categorias -
+	// Fonte UML - Por isso devemos construir uma lista de categorias
+	// categorias - Nome do papel - Ver em UML
+	// Para iniciar --> produtos = new ArrayList<>();
+
+	// @JoinTable define a tabela que fará a ligação de muitos para muitos no banco
+	// de dados relacional
+
+	/*
+	 * Mapeamento da lista de categorias informando quem irá ser a tabela de banco
+	 * de dados que irá fazer o meio de campe entre as duas tabelas (CATEGORIA E
+	 * PRODUTO)
+	 */
+
+	// Conexões entre chaves estrangeiras
 
 	// joinColumns → Para atribuir a chave estrangeira de Produto = produto_id
 
-	//inverseJoinColumns → Outra chave estrangeira que irá referenciar a categoria = categoria_id
-	
-	@JsonBackReference //Aula-S2-17, Irá omitir a lista de categorias para cada produto
+	// inverseJoinColumns → Outra chave estrangeira que irá referenciar a categoria
+	// = categoria_id
+
+	@JsonBackReference // Aula-S2-17, Irá omitir a lista de categorias para cada produto
 	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA",
-			joinColumns = @JoinColumn(name = "produto_id"),
-			inverseJoinColumns = @JoinColumn(name ="categoria_id")
-	)
+	@JoinTable(name = "PRODUTO_CATEGORIA", joinColumns = @JoinColumn(name = "produto_id"), inverseJoinColumns = @JoinColumn(name = "categoria_id"))
 	private List<Categoria> categorias = new ArrayList<>();
-	
+
 	// Set = Para o Java não deixar ter item repetido no mesmo pedido - Aula - S2-25
-	@OneToMany(mappedBy="id.produto")
+	@JsonIgnore 
+	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>();
-	
-	//Construtor Vazio
+
+	// Construtor Vazio
 	public Produto() {
-		
+
 	}
-	//Categoria não irá entrar no contrutor -Já foi iniciado em cima pela List
-	//--> não inclua coleções no construtor com parâmetros
+
+	// Categoria não irá entrar no contrutor -Já foi iniciado em cima pela List
+	// --> não inclua coleções no construtor com parâmetros
 	public Produto(Integer id, String nome, Double preco) {
 		super();
 		this.id = id;
 		this.nome = nome;
 		this.preco = preco;
 	}
-	
-	//Aula - S2-25
-	public List<Pedido> getPedido(){
+
+	// Aula - S2-25
+	//@JsonIgnore
+	public List<Pedido> getPedido() {
 		List<Pedido> lista = new ArrayList<>();
-		for (ItemPedido x : itens ) {
+		for (ItemPedido x : itens) {
 			lista.add(x.getPedido());
 		}
 		return lista;
 	}
-	
+
 	public Integer getId() {
 		return id;
 	}
+
 	public void setId(Integer id) {
 		this.id = id;
 	}
+
 	public String getNome() {
 		return nome;
 	}
+
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+
 	public Double getPreco() {
 		return preco;
 	}
+
 	public void setPreco(Double preco) {
 		this.preco = preco;
 	}
+
 	public List<Categoria> getCategorias() {
 		return categorias;
 	}
+
 	public void setCategorias(List<Categoria> categorias) {
 		this.categorias = categorias;
 	}
-	
-	//Getters e Setters
+
+	// Getters e Setters
 	public Set<ItemPedido> getItens() {
 		return itens;
 	}
+
 	public void setItens(Set<ItemPedido> itens) {
 		this.itens = itens;
 	}
-	
-	//hashCode e equals (implementação padrão: somente id) --> 
-	//Criar com base somente no id, para comparar pelo conteúdo e não pelo ponteiro
+
+	// hashCode e equals (implementação padrão: somente id) -->
+	// Criar com base somente no id, para comparar pelo conteúdo e não pelo ponteiro
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -120,6 +134,7 @@ public class Produto implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -136,7 +151,5 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-
-	
 
 }

@@ -12,26 +12,28 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-@Entity //Indica que a presente class será uma entidade do JPA-- Para criar a tab. de BD
+@Entity // Indica que a presente class será uma entidade do JPA-- Para criar a tab. de
+		// BD
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) //Para definir a estratégia de geração automatica 
-	//dos Ids das minhas categorias-- Para criar a tab. de BD
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Para definir a estratégia de geração automatica
+	// dos Ids das minhas categorias-- Para criar a tab. de BD
 	private Integer id;
 	private String nome;
-	
-	//Uma categoria possui vários produtos - Fonte UML - Por isso devemos construir uma lista de produtos
-	//produtos - Nome do papel - Ver em UML
-	
-	@JsonManagedReference //No lado onde eu quero que venha os objetos associados - aula S2-17
-	@ManyToMany(mappedBy="categorias")
+
+	// Uma categoria possui vários produtos - Fonte UML - Por isso devemos construir
+	// uma lista de produtos
+	// produtos - Nome do papel - Ver em UML
+
+	@JsonManagedReference // No lado onde eu quero que venha os objetos associados - aula S2-17
+	@ManyToMany(mappedBy = "categorias")
 	private List<Produto> produtos = new ArrayList<>();
-	//Para iniciar --> produtos = new ArrayList<>();
-	
+	// Para iniciar --> produtos = new ArrayList<>();
+
 	public Categoria() {
-		
+
 	}
 
 	public Categoria(Integer id, String nome) {
@@ -63,7 +65,7 @@ public class Categoria implements Serializable {
 	public void setProdutos(List<Produto> produtos) {
 		this.produtos = produtos;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -71,8 +73,9 @@ public class Categoria implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
-	//hashCode e equals (implementação padrão: somente id) --> 
-	//Criar com base somente no id, para comparar pelo conteúdo e não pelo ponteiro
+
+	// hashCode e equals (implementação padrão: somente id) -->
+	// Criar com base somente no id, para comparar pelo conteúdo e não pelo ponteiro
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -90,7 +93,4 @@ public class Categoria implements Serializable {
 		return true;
 	}
 
-	
-	
-	
 }
