@@ -23,7 +23,7 @@ public class ClienteResource {
 	//vai ser o /categorias e o /id
 	//find - esse método irá receber um id que irá vim da minha uml
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-	public ResponseEntity<?> find(@PathVariable Integer id) {
+	public ResponseEntity<Cliente> find(@PathVariable Integer id) {
 		//ResponseEntity é um tipo especial do Spring que ele encapsula (armazena) 
 		//várias informações de uma resposta http para um servidor Rest
 		
