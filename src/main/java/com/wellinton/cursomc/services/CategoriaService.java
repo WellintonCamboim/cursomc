@@ -1,12 +1,15 @@
 package com.wellinton.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import com.wellinton.cursomc.domain.Categoria;
 import com.wellinton.cursomc.repositories.CategoriaRepository;
+import com.wellinton.cursomc.services.exception.DataIntegrityException;
 import com.wellinton.cursomc.services.exception.ObjectNotFoundException;
 
 // Camada de serviços de Categoria
@@ -33,5 +36,18 @@ public class CategoriaService {
 	public Categoria update(Categoria obj) {
 		find(obj.getId());
 		return repo.save(obj);
+	}
+	// Aula - S3-33 - DELETE
+	public void delete(Integer id) {
+		find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch (DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+		}
+	}
+	public List<Categoria> findAll(){
+		return repo.findAll();
 	}
 }
