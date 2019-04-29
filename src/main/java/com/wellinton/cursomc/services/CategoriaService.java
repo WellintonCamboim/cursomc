@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.wellinton.cursomc.domain.Categoria;
+import com.wellinton.cursomc.dto.CategoriaDTO;
 import com.wellinton.cursomc.repositories.CategoriaRepository;
 import com.wellinton.cursomc.services.exception.DataIntegrityException;
 import com.wellinton.cursomc.services.exception.ObjectNotFoundException;
@@ -59,5 +60,10 @@ public class CategoriaService {
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
 		return repo.findAll(pageRequest);
 		
+	}
+	//Aula - S3-36 - A partir de um DTO o sistema irá construir um objeto Categoria
+	//Método auxiliar que instancia uma Categoria a partir de um DTO 
+	public Categoria fromDTO(CategoriaDTO objDto) {
+		return new Categoria(objDto.getId(), objDto.getNome());
 	}
 }

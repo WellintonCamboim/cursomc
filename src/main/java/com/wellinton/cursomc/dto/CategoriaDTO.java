@@ -2,6 +2,10 @@ package com.wellinton.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
 import com.wellinton.cursomc.domain.Categoria;
 
 //Aula-S3-34- DTO
@@ -11,6 +15,10 @@ public class CategoriaDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Integer id;
+	
+	//Aula-S3-36
+	@NotEmpty(message="Preenchimento obrigatório") //Validação sintática com Bean Validation
+	@Length(min=5, max=80, message="O tamanho deve ser entre 5 e 80 caracteres") //Validação sintática com Bean Validation
 	private String nome;
 
 	// Construtor Vazio
