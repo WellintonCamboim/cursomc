@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -32,7 +33,8 @@ public class Cliente implements Serializable {
 	private Integer tipo;
 
 	// Relacionamentos
-	@OneToMany(mappedBy = "cliente")
+	//Aula-S3-41-cascadeType - Se for apagar um cliente, o software também irá apagar os endereços também, apesar da sua associação
+	@OneToMany(mappedBy = "cliente", cascade=CascadeType.ALL)
 	private List<Endereco> enderecos = new ArrayList<>();
 
 	// Set<> é um conjunto de Strings, não aceitará repetição
