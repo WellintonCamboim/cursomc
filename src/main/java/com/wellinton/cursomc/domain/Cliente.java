@@ -57,7 +57,8 @@ public class Cliente implements Serializable {
 		this.nome = nome;
 		this.email = email;
 		this.cpfOuCnpj = cpfOuCnpj;
-		this.tipo = tipo.getCod();
+		//Aula-S3-38-Operador ternário para tipo null
+		this.tipo = (tipo==null) ? null : tipo.getCod();
 	}
 
 	// Getters e Setters
