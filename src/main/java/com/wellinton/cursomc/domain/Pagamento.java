@@ -40,7 +40,8 @@ public abstract class Pagamento implements Serializable {
 	public Pagamento(Integer id, EstadoPagamento estado, Pedido pedido) {
 		super();
 		this.id = id;
-		this.estado = estado.getCod();
+		//Aula-S3-39-Operador ternário para tipo null
+		this.estado = (estado==null) ? null :estado.getCod();
 		this.pedido = pedido;
 	}
 

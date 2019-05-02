@@ -37,33 +37,42 @@ public class CategoriaService {
 	}
 
 	// Aula - S3-32
+	// Aula-S3-39
 	public Categoria update(Categoria obj) {
-		find(obj.getId());
-		return repo.save(obj);
+		Categoria newObj = find(obj.getId());
+		updateData(newObj,obj);
+		return repo.save(newObj);
 	}
+
 	// Aula - S3-33 - DELETE
 	public void delete(Integer id) {
 		find(id);
 		try {
 			repo.deleteById(id);
-		}
-		catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
 		}
 	}
-	public List<Categoria> findAll(){
+
+	public List<Categoria> findAll() {
 		return repo.findAll();
 	}
-	
-	//Aula - S3-35
-	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
-		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction),orderBy);
+
+	// Aula - S3-35
+	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
-		
+
 	}
-	//Aula - S3-36 - A partir de um DTO o sistema irá construir um objeto Categoria
-	//Método auxiliar que instancia uma Categoria a partir de um DTO 
+
+	// Aula - S3-36 - A partir de um DTO o sistema irá construir um objeto Categoria
+	// Método auxiliar que instancia uma Categoria a partir de um DTO
 	public Categoria fromDTO(CategoriaDTO objDto) {
 		return new Categoria(objDto.getId(), objDto.getNome());
+	}
+
+	// Aula-S3-39-Método Auxiliar
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 }
