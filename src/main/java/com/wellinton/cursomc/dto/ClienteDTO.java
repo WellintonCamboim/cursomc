@@ -8,7 +8,10 @@ import javax.validation.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Length;
 
 import com.wellinton.cursomc.domain.Cliente;
+import com.wellinton.cursomc.services.validation.ClienteUpdate;
 
+//Aula-S3-44 - @ClienteUpdate --> Anotação que faz a verificação do cliente 	
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -15,6 +15,8 @@ import com.wellinton.cursomc.domain.Cliente;
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 	
 	//Aula-S3-43
-	@Transactional(readOnly=true)
+	//Busca por Email, caso o e-mail já existir, irá ser reportado a seguinte "message": "Email já existente"
+	//Recurso de padrão de nome
+	@Transactional(readOnly=true) //Ela não necessida ser uma operação envolvida com banco de dados 
 	Cliente findByEmail(String email);
 }

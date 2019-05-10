@@ -8,15 +8,15 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-//Anotação 
+//Aula-S3-44 - Anotação de Validação
 //ClienteInsertValidator -> class que implementa o validation
 //ClienteInsert --> É a anotação 
 //Aula-S3-42- Validação customizada: CPF ou CNPJ na inserção de Cliente
-@Constraint(validatedBy = ClienteInsertValidator.class)
+@Constraint(validatedBy = ClienteUpdateValidator.class)
 @Target({ ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 
-public @interface ClienteInsert {
+public @interface ClienteUpdate {
 	String message() default "Erro de validação";
 	
 	Class<?>[] groups() default{};
