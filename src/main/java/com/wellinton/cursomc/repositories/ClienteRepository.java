@@ -2,6 +2,7 @@ package com.wellinton.cursomc.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.wellinton.cursomc.domain.Cliente;
 
@@ -12,5 +13,8 @@ import com.wellinton.cursomc.domain.Cliente;
 //em um tipo (Objetos do tipo Categoria) --> Categoria,do tipo Integer
 @Repository // Será uma interface que irá herdar do JpaRepository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
-
+	
+	//Aula-S3-43
+	@Transactional(readOnly=true)
+	Cliente findByEmail(String email);
 }
